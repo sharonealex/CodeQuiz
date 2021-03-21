@@ -1,10 +1,11 @@
 //get all divs and store into variables
 var questionBox = document.querySelector(".questionBox");
-//var choicesBox = document.querySelector(".choicesBox");
+var choicesBox = document.querySelector(".choicesBox");
 var startButtonEl = document.querySelector(".start");
 var feedback = document.querySelector(".feedback");
 var introsection = document.querySelector(".intro");
 var choicebtn;
+var currentIndex = 0;
 
 //prepare question List
 var questionList = [
@@ -16,7 +17,7 @@ var questionList = [
 
     },
     {
-        question: "What is javascript?",
+        question: "What is DOM traverse?",
         choices: ["aa2", "bb2", "cc2"],
         answer: "aa2",
         feedback: ["Correct", "Wrong"]
@@ -36,42 +37,57 @@ var questionList = [
 ];
 
 //add event listener on the button
-startButtonEl.addEventListener('click',  displayQuestion)
+startButtonEl.addEventListener('click',  function(){
+    
+    displayQuestion();
+})
 
-//choicebtn.addEventListener("click", getValue);
-choicebtn = document.querySelector(".choiceButton");
-console.log(choicebtn)
 
-  function getValue() { 
-   console.log(this.val())
-   };
 
 
 
 //function to display question
 function displayQuestion() {
-  var question = questionList[0].question;
+
+  var question = questionList[currentIndex].question;
   var questionEl = document.createElement("p");
   questionEl.innerHTML = question;
   questionBox.appendChild(questionEl);
-  var choices = questionList[0].choices;
+  var choices = questionList[currentIndex].choices;
   choices.forEach(function(choice){
    var choiceButton = document.createElement("button");
-   choiceButton.innerHTML = choice;
-   choiceButton.setAttribute("class", "choiceButton");
-   questionBox.appendChild(choiceButton);
+   choiceButton.textContent = choice;
+   choicesBox.appendChild(choiceButton);
+   choiceButton.addEventListener('click', validate)
+   
   })
 }
 
-function validateAnswer(question){
-//check if answer is correct
-if(ans === question["answer"]){
-feedback.innerHTML = question["feedback"][0];
-} 
-else {
-    feedback.innerHTML = question["feedback"][0];
+function validate(){
+    if(this.textContent === questionList[0]["answer"]){
+     feedback.textContent = questionList[0]["feedback"][0];
+     checkToProceed();
+    }
+    else{
+     feedback.textContent = questionList[0]["feedback"][1];
+     checkToProceed();
+    }
 }
 
+function checkToProceed(){
+    if(questionList[currentIndex] != questionList.length-1){
+        currentIndex++;
+        choiceButton.textContent = "";
+        displayQuestion();
+      }
+      else {
+          showResult();
+      }
 }
+
+function showResult(){
+    alert("you won");
+}
+
 
 
