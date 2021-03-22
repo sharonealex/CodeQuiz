@@ -6,6 +6,10 @@ var feedback = document.querySelector(".feedback");
 var introsection = document.querySelector(".intro");
 var choicebtn;
 var currentIndex = 0;
+var question;
+var questionEl = document.createElement("p");
+var nextButton = document.createElement("button");
+nextButton.textContent = "next";
 
 //prepare question List
 var questionList = [
@@ -48,9 +52,9 @@ startButtonEl.addEventListener('click',  function(){
 
 //function to display question
 function displayQuestion() {
-
-  var question = questionList[currentIndex].question;
-  var questionEl = document.createElement("p");
+  choicesBox.textContent = "";
+  //feedback.textContent = "";
+  question = questionList[currentIndex].question;
   questionEl.innerHTML = question;
   questionBox.appendChild(questionEl);
   var choices = questionList[currentIndex].choices;
@@ -61,23 +65,26 @@ function displayQuestion() {
    choiceButton.addEventListener('click', validate)
    
   })
+ 
 }
 
 function validate(){
     if(this.textContent === questionList[0]["answer"]){
      feedback.textContent = questionList[0]["feedback"][0];
-     checkToProceed();
     }
     else{
      feedback.textContent = questionList[0]["feedback"][1];
-     checkToProceed();
     }
+    setTimeout(function(){
+        feedback.textContent = "";
+    }, 800);
+    checkToProceed();
 }
 
 function checkToProceed(){
     if(questionList[currentIndex] != questionList.length-1){
         currentIndex++;
-        choiceButton.textContent = "";
+        
         displayQuestion();
       }
       else {
