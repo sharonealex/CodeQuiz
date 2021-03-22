@@ -11,6 +11,7 @@ var question;
 var questionEl = document.createElement("p");
 var numCorrect = 0;
 var numWrong = 0;
+var scores = [];
 
 //prepare question List
 var questionList = [
@@ -70,12 +71,12 @@ function displayQuestion() {
 }
 
 function validate(){
-    if(this.textContent === questionList[0]["answer"]){
-     feedback.textContent = questionList[0]["feedback"][0];
+    if(this.textContent === questionList[currentIndex]["answer"]){
+     feedback.textContent = questionList[currentIndex]["feedback"][0];
      numCorrect ++;
     }
     else{
-     feedback.textContent = questionList[0]["feedback"][1];
+     feedback.textContent = questionList[currentIndex]["feedback"][1];
      numWrong;
     }
     setTimeout(function(){
@@ -90,17 +91,34 @@ function checkToProceed(){
         displayQuestion();
       }
       else {
+          
           showResult();
+          showHighestScore();
           
       }
 }
 
 function showResult(){
+    if(localStorage.getItem("score")){
+        var getScores = JSON.parse(localStorage.getItem("score"));
+        getScores.push(numCorrect);
+        localStorage.setItem("score", JSON.stringify(getScores))
+    }
     resultsBox.removeAttribute("class")
     resultsBox.textContent = "You won!! Score is " + numCorrect + "/" + questionList.length;
     questionBox.setAttribute("class", "hide");
     choicesBox.setAttribute("class", "hide");
 }
+
+function showHighestScore(){
+    if(localStorage.getItem("score")){
+        var getScores = JSON.parse(localStorage.getItem("score"));
+        console.log(Math.max(...getScores))
+    resultsBox.textContent = Math.max(...getScores)
+        
+    }
+    }
+
 
 
 
