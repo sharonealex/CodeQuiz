@@ -4,12 +4,13 @@ var choicesBox = document.querySelector(".choicesBox");
 var startButtonEl = document.querySelector(".start");
 var feedback = document.querySelector(".feedback");
 var introsection = document.querySelector(".intro");
+var resultsBox = document.querySelector("#results");
 var choicebtn;
 var currentIndex = 0;
 var question;
 var questionEl = document.createElement("p");
-var nextButton = document.createElement("button");
-nextButton.textContent = "next";
+var numCorrect = 0;
+var numWrong = 0;
 
 //prepare question List
 var questionList = [
@@ -42,7 +43,7 @@ var questionList = [
 
 //add event listener on the button
 startButtonEl.addEventListener('click',  function(){
-    
+    startButtonEl.setAttribute("class", "hide")
     displayQuestion();
 })
 
@@ -71,9 +72,11 @@ function displayQuestion() {
 function validate(){
     if(this.textContent === questionList[0]["answer"]){
      feedback.textContent = questionList[0]["feedback"][0];
+     numCorrect ++;
     }
     else{
      feedback.textContent = questionList[0]["feedback"][1];
+     numWrong;
     }
     setTimeout(function(){
         feedback.textContent = "";
@@ -82,18 +85,21 @@ function validate(){
 }
 
 function checkToProceed(){
-    if(questionList[currentIndex] != questionList.length-1){
+    if(currentIndex != questionList.length-1){
         currentIndex++;
-        
         displayQuestion();
       }
       else {
           showResult();
+          
       }
 }
 
 function showResult(){
-    alert("you won");
+    resultsBox.removeAttribute("class")
+    resultsBox.textContent = "You won!! Score is " + numCorrect + "/" + questionList.length;
+    questionBox.setAttribute("class", "hide");
+    choicesBox.setAttribute("class", "hide");
 }
 
 
