@@ -3,71 +3,69 @@ var questionBox = document.querySelector(".questionBox");
 var choicesBox = document.querySelector(".choicesBox");
 var startButtonEl = document.querySelector(".start");
 var feedback = document.querySelector(".feedback");
-var introsection = document.querySelector(".intro");
 var resultsBox = document.querySelector("#results");
 var timeEl = document.querySelector(".time");
-var choicebtn;
+var questionEl = document.createElement("p");
 var currentIndex = 0;
 var question;
-var questionEl = document.createElement("p");
 var numCorrect = 0;
-var numWrong = 0;
 var scores = [];
-var secondsLeft = 10;
+var secondsLeft = 60;
 var timerInterval;
 
 //prepare question List
 var questionList = [
   {
-    question: "What is javascript?",
-    choices: ["aa1", "bb1", "cc1"],
-    answer: "aa1",
-    feedback: ["Correct", "Wrong"],
+    question: "Inside which HTML element do we put the JavaScript?",
+    choices: ["<scripting>", "<javascript>", "<js>", "<script>"],
+    answer: "<script>",
+    feedback: ["That's Right!", "Nope Wrong!"],
   },
   {
-    question: "What is DOM traverse?",
-    choices: ["aa2", "bb2", "cc2"],
-    answer: "aa2",
-    feedback: ["Correct", "Wrong"],
+    question: "Where is the correct place to insert a JavaScript?",
+    choices: ["body", "head", "both body and head"],
+    answer: "both body and head",
+    feedback: ["That's Right!", "Nope Wrong!"],
   },
   {
-    question: "What is javascript?",
-    choices: ["aa3", "bb3", "cc3"],
-    answer: "aa3",
-    feedback: ["Correct", "Wrong"],
+    question: "What is the correct syntax for referring to an external script called 'xxx.js'?",
+    choices: ["<script name='xxx.js'>", "<script href='xxx.js'>", "<script src='xxx.js'>"],
+    answer: "<script name='xxx.js'>",
+    feedback: ["That's Right!", "Nope Wrong!"],
   },
   {
-    question: "What is javascript?",
-    choices: ["aa4", "bb4", "cc4"],
-    answer: "aa4",
-    feedback: ["Correct", "Wrong"],
+    question: "The external JavaScript file must contain the <script> tag.",
+    choices: ["True", "False"],
+    answer: "False",
+    feedback: ["That's Right!", "Nope Wrong!"],
+  },
+  {
+    question: "How do you write 'Hello World' in an alert box?",
+    choices: ["alertBox('Hello World')", "msg('Hello World')", "alert('Hello World')", "msgBox('Hello World')"],
+    answer: "alert('Hello World')",
+    feedback: ["That's Right!", "Nope Wrong!"],
   },
 ];
 
-//add event listener on the button
+
 startButtonEl.addEventListener("click", function () {
   startButtonEl.setAttribute("class", "hide");
+  timerInterval = setInterval(function () {
+  secondsLeft--;
+  timeEl.textContent = secondsLeft;
 
-   timerInterval = setInterval(function () {
-    secondsLeft--;
-    timeEl.textContent = secondsLeft;
-
-    if (secondsLeft != 0) {
+  if (secondsLeft != 0) {
       displayQuestion();
-      // Stops execution of action at set interval
-    } else {
+  } else {
       clearInterval(timerInterval);
-      // Calls function to create and append image
-     
       sendMessage();
     }
-  }, 1000);
+  }, 500);
 });
 
 //function to display question
 function displayQuestion() {
   choicesBox.textContent = "";
-  //feedback.textContent = "";
   question = questionList[currentIndex].question;
   questionEl.innerHTML = question;
   questionBox.appendChild(questionEl);
@@ -84,9 +82,9 @@ function validate() {
   if (this.textContent === questionList[currentIndex]["answer"]) {
     feedback.textContent = questionList[currentIndex]["feedback"][0];
     numCorrect++;
-  } else {
+  } 
+  else {
     feedback.textContent = questionList[currentIndex]["feedback"][1];
-    numWrong;
   }
   setTimeout(function () {
     feedback.textContent = "";
@@ -98,7 +96,8 @@ function checkToProceed() {
   if (currentIndex != questionList.length - 1) {
     currentIndex++;
     displayQuestion();
-  } else {
+  } 
+  else {
     showResult();
     clearInterval(timerInterval)
     timeEl.textContent = "";
@@ -126,22 +125,6 @@ function showHighestScore() {
     resultsBox.textContent = Math.max(...getScores);
   }
 }
-
-// function setTime() {
-//     // Sets interval in variable
-//     var timerInterval = setInterval(function() {
-//       secondsLeft--;
-//       timeEl.textContent = secondsLeft;
-
-//       if(secondsLeft === 0) {
-//         // Stops execution of action at set interval
-//         clearInterval(timerInterval);
-//         // Calls function to create and append image
-//         sendMessage();
-//       }
-
-//     }, 1000);
-//   }
 
 function sendMessage() {
   timeEl.textContent = " Time Over ";
