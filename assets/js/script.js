@@ -74,6 +74,7 @@ function displayQuestion() {
     var choiceButton = document.createElement("button");
     choiceButton.textContent = choice;
     choicesBox.appendChild(choiceButton);
+    choiceButton.setAttribute("class", "show");
     choiceButton.addEventListener("click", validate);
   });
 }
