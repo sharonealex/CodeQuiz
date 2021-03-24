@@ -6,6 +6,11 @@ var feedback = document.querySelector(".feedback");
 var resultsBox = document.querySelector("#results");
 var timeEl = document.querySelector(".time");
 var questionEl = document.createElement("p");
+var intro = document.querySelector(".intro");
+var submitEl = document.querySelector("#submit");
+var resMsg = document.querySelector("#res");
+
+
 var currentIndex = 0;
 var question;
 var numCorrect = 0;
@@ -23,18 +28,18 @@ var questionList = [
   },
   {
     question: "Where is the correct place to insert a JavaScript?",
-    choices: ["body", "head", "both body and head"],
+    choices: ["body", "head", "both body and head", "none"],
     answer: "both body and head",
     feedback: ["That's Right!", "Nope Wrong!"],
   },
   {
     question: "What is the correct syntax for referring to an external script called 'xxx.js'?",
-    choices: ["<script name='xxx.js'>", "<script href='xxx.js'>", "<script src='xxx.js'>"],
+    choices: ["<script name='xxx.js'>", "<script href='xxx.js'>", "<script src='xxx.js'>", "none"],
     answer: "<script name='xxx.js'>",
     feedback: ["That's Right!", "Nope Wrong!"],
   },
   {
-    question: "The external JavaScript file must contain the <script> tag.",
+    question: "The external JavaScript file must contain the script tag.",
     choices: ["True", "False"],
     answer: "False",
     feedback: ["That's Right!", "Nope Wrong!"],
@@ -52,7 +57,8 @@ startButtonEl.addEventListener("click", function () {
   startButtonEl.setAttribute("class", "hide");
   timerInterval = setInterval(function () {
   secondsLeft--;
-  timeEl.textContent = secondsLeft;
+  timeEl.setAttribute("class", "topright");
+  timeEl.textContent = "Time: " + secondsLeft;
 
   if (secondsLeft != 0) {
       displayQuestion();
@@ -81,14 +87,17 @@ function displayQuestion() {
 
 function validate() {
   if (this.textContent === questionList[currentIndex]["answer"]) {
+    feedback.setAttribute("class", "showText");
     feedback.textContent = questionList[currentIndex]["feedback"][0];
     numCorrect++;
   } 
   else {
+    feedback.setAttribute("class", "showText");
     feedback.textContent = questionList[currentIndex]["feedback"][1];
   }
   setTimeout(function () {
     feedback.textContent = "";
+    feedback.setAttribute("class", "hide");
   }, 800);
   checkToProceed();
 }
@@ -102,21 +111,25 @@ function checkToProceed() {
     showResult();
     clearInterval(timerInterval)
     timeEl.textContent = "";
-    showHighestScore();
+    //showHighestScore();
   }
 }
 
 function showResult() {
-  if (localStorage.getItem("score")) {
-    var getScores = JSON.parse(localStorage.getItem("score"));
-    getScores.push(numCorrect);
-    localStorage.setItem("score", JSON.stringify(getScores));
-  }
+   //resultsBox.textContent =
+  // if (localStorage.getItem("score")) {
+  //   var getScores = JSON.parse(localStorage.getItem("score"));
+  //   getScores.push(numCorrect);
+  //   localStorage.setItem("score", JSON.stringify(getScores));
+  // }
+
+  resMsg.innerHTML = "Your score is " + numCorrect + "/" + questionList.length;
   resultsBox.removeAttribute("class");
-  resultsBox.textContent =
-    "You won!! Score is " + numCorrect + "/" + questionList.length;
+ 
+   // "You won!! Score is " + numCorrect + "/" + questionList.length;
   questionBox.setAttribute("class", "hide");
   choicesBox.setAttribute("class", "hide");
+  intro.setAttribute("class", "hide");
 }
 
 function showHighestScore() {
@@ -128,8 +141,21 @@ function showHighestScore() {
 }
 
 function sendMessage() {
-  timeEl.textContent = " Time Over ";
+  timeEl.textContent = " Time Over "; 
   resultsBox.textContent = "";
   questionBox.textContent = "";
   choicesBox.textContent = "";
+  feedback.textContent = "";
 }
+
+function showHighScores(){
+if (localStorage.getItem("score")) {
+    var getScores = JSON.parse(localStorage.getItem("score"));
+    getScores.push(numCorrect);
+    localStorage.setItem("score", JSON.stringify(getScores));
+}
+}
+
+submitEl.addEventListener("click", function () {
+  showHighScores();
+});

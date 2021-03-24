@@ -64,8 +64,67 @@ section.choicesBox button.show {
     text-decoration: none;
     display: inline;
     font-size: 16px;
+    font-weight: bolder;
     margin: 4px 2px;
     cursor: pointer;
     margin-left: 500px;
     border-radius: 12px;
 }
+
+
+
+.showText{
+    border-top: 1px solid grey;
+    font-style: italic;
+    text-align: center;
+}
+
+section.topright {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;
+  }
+
+ section.highScore {
+        position: absolute;
+        top: 8px;
+        left: 16px;
+        font-size: 18px;
+ } 
+
+
+
+ a {
+    color: purple;
+    text-decoration: none;
+  }
+
+  #results{
+      text-align: center;
+      color: purple;
+      font-weight:bolder;
+     
+  }
+
+  #submit {
+  
+    background-color: #922192;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    font-size: 10px;
+    font-weight: bolder;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+  }
+
+  #res{
+    text-align: center;
+    color: purple;
+    font-weight:bolder;
+  }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>CodeQuiz</title>
 </head>
@@ -16,11 +17,23 @@
             <button class="start">BEGIN QUIZ</button>
         </section>
         <section class="time"></section>
+        <section class="highScore">
+            <a href="ViewHighScores">View HighScores</a>
+        </section>
         <section class="questionBox"></section>
         <section class="choicesBox"></section>
-        <section class="feedback"></section> 
+        <section class="feedback">
+        </section> 
         <section id="results" class="hide">
-            <div id="score"></div>
+            <p id="msg">All Done!</div>
+            </hr>
+            <p id="res"></p>
+                            <form action="#">
+                    <label for="initials">Enter Initials:</label>
+                    <input type="text" id="initials" name="initials">
+                    <input id="submit" type="submit" value="SUBMIT">
+                  </form>
+
         </section>
     </main>
 </body>
