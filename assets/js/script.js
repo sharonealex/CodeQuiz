@@ -18,7 +18,8 @@ var secondsLeft = 60;
 var timerInterval;
 
 
-//prepare question List
+//Prepare question List
+
 var questionList = [
   {
     question: "Inside which HTML element do we put the JavaScript?",
@@ -52,6 +53,7 @@ var questionList = [
   },
 ];
 
+//Event Handler for start button
 
 startButtonEl.addEventListener("click", function () {
   startButtonEl.setAttribute("class", "hide");
@@ -69,7 +71,7 @@ startButtonEl.addEventListener("click", function () {
   }, 500);
 });
 
-//function to display question
+//Function to display question 
 function displayQuestion() {
   choicesBox.textContent = "";
   question = questionList[currentIndex].question;
@@ -85,6 +87,7 @@ function displayQuestion() {
   });
 }
 
+//Validates the user selected entry
 function validate() {
   if (this.textContent === questionList[currentIndex]["answer"]) {
     feedback.setAttribute("class", "showText");
@@ -101,7 +104,7 @@ function validate() {
   }, 800);
   checkToProceed();
 }
-
+//Checks limits of question list to proceed
 function checkToProceed() {
   if (currentIndex != questionList.length - 1) {
     currentIndex++;
@@ -114,7 +117,7 @@ function checkToProceed() {
     showHighestScore();
   }
 }
-
+//Shows result screen
 function showResult() {
   resMsg.innerHTML = "Your score is " + numCorrect + "/" + questionList.length;
   resultsBox.removeAttribute("class");
@@ -123,6 +126,7 @@ function showResult() {
   intro.setAttribute("class", "hide");
 }
 
+//Show Highest scores
 function showHighestScore() {
   if (localStorage.getItem("score")) {
     var getScores = JSON.parse(localStorage.getItem("score"));
@@ -131,6 +135,7 @@ function showHighestScore() {
   }
 }
 
+//Sends message in the event of a timeout
 function sendMessage() {
   timeEl.textContent = " Time Over!! "; 
   resultsBox.textContent = "";
@@ -139,6 +144,7 @@ function sendMessage() {
   feedback.textContent = "";
 }
 
+//Shows high scores in table with initials
 function showHighScores(){
  // console.log(localStorage.getItem("scoreChart") + "local storage");
  localStorage.setItem("obj1", JSON.stringify({sdfd:"sdfd"})); 
