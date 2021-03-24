@@ -9,14 +9,14 @@ var questionEl = document.createElement("p");
 var intro = document.querySelector(".intro");
 var submitEl = document.querySelector("#submit");
 var resMsg = document.querySelector("#res");
-
-
+var initials = document.querySelector("#initials");
 var currentIndex = 0;
 var question;
 var numCorrect = 0;
 var scores = [];
 var secondsLeft = 60;
 var timerInterval;
+
 
 //prepare question List
 var questionList = [
@@ -111,22 +111,13 @@ function checkToProceed() {
     showResult();
     clearInterval(timerInterval)
     timeEl.textContent = "";
-    //showHighestScore();
+    showHighestScore();
   }
 }
 
 function showResult() {
-   //resultsBox.textContent =
-  // if (localStorage.getItem("score")) {
-  //   var getScores = JSON.parse(localStorage.getItem("score"));
-  //   getScores.push(numCorrect);
-  //   localStorage.setItem("score", JSON.stringify(getScores));
-  // }
-
   resMsg.innerHTML = "Your score is " + numCorrect + "/" + questionList.length;
   resultsBox.removeAttribute("class");
- 
-   // "You won!! Score is " + numCorrect + "/" + questionList.length;
   questionBox.setAttribute("class", "hide");
   choicesBox.setAttribute("class", "hide");
   intro.setAttribute("class", "hide");
@@ -141,7 +132,7 @@ function showHighestScore() {
 }
 
 function sendMessage() {
-  timeEl.textContent = " Time Over "; 
+  timeEl.textContent = " Time Over!! "; 
   resultsBox.textContent = "";
   questionBox.textContent = "";
   choicesBox.textContent = "";
@@ -149,10 +140,36 @@ function sendMessage() {
 }
 
 function showHighScores(){
-if (localStorage.getItem("score")) {
-    var getScores = JSON.parse(localStorage.getItem("score"));
-    getScores.push(numCorrect);
-    localStorage.setItem("score", JSON.stringify(getScores));
+ // console.log(localStorage.getItem("scoreChart") + "local storage");
+ localStorage.setItem("obj1", JSON.stringify({sdfd:"sdfd"})); 
+ var obj1 = JSON.parse(localStorage.getItem("obj1"));
+ console.log(JSON.stringify(obj1));
+ //var testVar3 = JSON.parse(localStorage.getItem("scoreChart"));
+ 
+ //console.log(testVar3);
+if (localStorage.getItem("scoreChart")) {
+   console.log("if here");
+  // console.log(JSON.parse(localStorage.getItem("scoreChart")));
+  //   var getScores = JSON.parse(localStorage.getItem("scoreChart")); //array
+  //   console.log(initials.innerHTML);
+  //   scoreInitial = {
+  //     initial: "",
+  //     score: numCorrect
+  //   }
+  //   getScores.push(scoreInitial)
+  //  // getScores.push(numCorrect);
+  //   localStorage.setItem("scoreChart", JSON.stringify(getScores));
+}
+else{
+   console.log("inside else");
+  var getScores = [];
+  scoreInitial = {
+    initial: "hi",
+    score: numCorrect
+   }
+   getScores.push(scoreInitial);
+   console.log(JSON.stringify(getScores));
+  localStorage.setItem("scoreChart", JSON.stringify(getScores));
 }
 }
 
