@@ -14,7 +14,7 @@ var currentIndex = 0;
 var question;
 var numCorrect = 0;
 var scores = [];
-var secondsLeft = 60;
+var secondsLeft = 100;
 var timerInterval;
 
 
@@ -147,24 +147,24 @@ function sendMessage() {
 //Shows high scores in table with initials
 function showHighScores(){
  // console.log(localStorage.getItem("scoreChart") + "local storage");
- localStorage.setItem("obj1", JSON.stringify({sdfd:"sdfd"})); 
- var obj1 = JSON.parse(localStorage.getItem("obj1"));
- console.log(JSON.stringify(obj1));
+ //localStorage.setItem("obj1", JSON.stringify({sdfd:"sdfd"})); 
+ //var obj1 = JSON.parse(localStorage.getItem("obj1"));
+ //console.log(JSON.stringify(obj1));
  //var testVar3 = JSON.parse(localStorage.getItem("scoreChart"));
  
  //console.log(testVar3);
 if (localStorage.getItem("scoreChart")) {
    console.log("if here");
-  // console.log(JSON.parse(localStorage.getItem("scoreChart")));
-  //   var getScores = JSON.parse(localStorage.getItem("scoreChart")); //array
-  //   console.log(initials.innerHTML);
-  //   scoreInitial = {
-  //     initial: "",
-  //     score: numCorrect
-  //   }
-  //   getScores.push(scoreInitial)
-  //  // getScores.push(numCorrect);
-  //   localStorage.setItem("scoreChart", JSON.stringify(getScores));
+  console.log(JSON.parse(localStorage.getItem("scoreChart")));
+    var getScores = JSON.parse(localStorage.getItem("scoreChart")); //array
+    console.log(initials.innerHTML);
+    scoreInitial = {
+      initial: "",
+      score: numCorrect
+    }
+    getScores.push(scoreInitial)
+   // getScores.push(numCorrect);
+    localStorage.setItem("scoreChart", JSON.stringify(getScores));
 }
 else{
    console.log("inside else");
