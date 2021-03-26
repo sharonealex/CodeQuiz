@@ -199,11 +199,7 @@ submitEl.addEventListener("click", function () {
   showHighScores();
 });
 
-function showAllScores(){
-  timeEl.textContent = "";
-  resultsBox.textContent = "";
-  questionBox.textContent = "";
-  choicesBox.textContent = "";
-  feedback.textContent = "";
+function showAllScores(event){
+  //event.preventDefault();
   displayUserAndScore();
 }
