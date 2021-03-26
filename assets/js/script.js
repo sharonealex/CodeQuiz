@@ -9,13 +9,17 @@ var questionEl = document.createElement("p");
 var intro = document.querySelector(".intro");
 var submitEl = document.querySelector("#submit");
 var resMsg = document.querySelector("#res");
-var initials = document.querySelector("#initials");
+var initials = document.querySelector("#initials").value;
 var currentIndex = 0;
 var question;
 var numCorrect = 0;
 var scores = [];
 var secondsLeft = 100;
 var timerInterval;
+var tabless = document.querySelector("#scoresTable");
+var anchor = document.querySelector("a");
+
+
 
 
 //Prepare question List
@@ -71,7 +75,8 @@ startButtonEl.addEventListener("click", function () {
   }, 500);
 });
 
-//Function to display question 
+//Function to display question and dynamically add choice buttons
+
 function displayQuestion() {
   choicesBox.textContent = "";
   question = questionList[currentIndex].question;
@@ -87,7 +92,8 @@ function displayQuestion() {
   });
 }
 
-//Validates the user selected entry
+//Validates the user selected entry against the correct answer and returns feedback
+
 function validate() {
   if (this.textContent === questionList[currentIndex]["answer"]) {
     feedback.setAttribute("class", "showText");
@@ -117,7 +123,7 @@ function checkToProceed() {
     showHighestScore();
   }
 }
-//Shows result screen
+//Shows result screen with score of the user
 function showResult() {
   resMsg.innerHTML = "Your score is " + numCorrect + "/" + questionList.length;
   resultsBox.removeAttribute("class");
@@ -144,41 +150,60 @@ function sendMessage() {
   feedback.textContent = "";
 }
 
+// Save user intial against their score in the local storage.
+
+function saveUserAndScore(){
+  var userInitial = document.querySelector("#initials").value;
+  if (localStorage.getItem("scoreChart")) {
+      var getScores = JSON.parse(localStorage.getItem("scoreChart")); //returns array
+      scoreInitial = {
+        initial: userInitial,
+        score: numCorrect
+      }
+      getScores.push(scoreInitial)
+      localStorage.setItem("scoreChart", JSON.stringify(getScores));
+  }
+  else{
+    var getScores = [];
+    scoreInitial = {
+      initial: userInitial,
+      score: numCorrect
+     }
+     getScores.push(scoreInitial);
+    localStorage.setItem("scoreChart", JSON.stringify(getScores));
+  }
+}
+
+function displayUserAndScore(){
+  resultsBox.textContent = "";
+  var fetchUserScores = JSON.parse(localStorage.getItem("scoreChart"))
+  var scoresTable =  document.querySelector("#scoresTable");
+  scoresTable.removeAttribute("class");
+  for(var i = 0; i < fetchUserScores.length; i ++ ){
+    var row = scoresTable.insertRow(1);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  cell1.innerHTML = fetchUserScores[i].initial;
+  cell2.innerHTML = fetchUserScores[i].score;
+  }
+
+}
+
 //Shows high scores in table with initials
 function showHighScores(){
- // console.log(localStorage.getItem("scoreChart") + "local storage");
- //localStorage.setItem("obj1", JSON.stringify({sdfd:"sdfd"})); 
- //var obj1 = JSON.parse(localStorage.getItem("obj1"));
- //console.log(JSON.stringify(obj1));
- //var testVar3 = JSON.parse(localStorage.getItem("scoreChart"));
- 
- //console.log(testVar3);
-if (localStorage.getItem("scoreChart")) {
-   console.log("if here");
-  console.log(JSON.parse(localStorage.getItem("scoreChart")));
-    var getScores = JSON.parse(localStorage.getItem("scoreChart")); //array
-    console.log(initials.innerHTML);
-    scoreInitial = {
-      initial: "",
-      score: numCorrect
-    }
-    getScores.push(scoreInitial)
-   // getScores.push(numCorrect);
-    localStorage.setItem("scoreChart", JSON.stringify(getScores));
-}
-else{
-   console.log("inside else");
-  var getScores = [];
-  scoreInitial = {
-    initial: "hi",
-    score: numCorrect
-   }
-   getScores.push(scoreInitial);
-   console.log(JSON.stringify(getScores));
-  localStorage.setItem("scoreChart", JSON.stringify(getScores));
-}
+  saveUserAndScore();
+  displayUserAndScore();
 }
 
 submitEl.addEventListener("click", function () {
   showHighScores();
 });
+
+function showAllScores(){
+  timeEl.textContent = "";
+  resultsBox.textContent = "";
+  questionBox.textContent = "";
+  choicesBox.textContent = "";
+  feedback.textContent = "";
+  displayUserAndScore();
+}

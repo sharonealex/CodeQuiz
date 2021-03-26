@@ -18,7 +18,7 @@
         </section>
         <section class="time"></section>
         <section class="highScore">
-            <a href="ViewHighScores">View HighScores</a>
+            <a href="ViewHighScores" onclick='showAllScores()'>View HighScores</a>
         </section>
         <section class="questionBox"></section>
         <section class="choicesBox"></section>
@@ -35,8 +35,13 @@
                   </form>
 
         </section>
-        <section class="highscores">
-            
+        <section class="highscores" class="hide">
+            <table id="scoresTable" class="hide">
+                <tr>
+                    <th>User</th>
+                    <th>Score</th>
+                  </tr>
+              </table>
         </section>
     </main>
 </body>

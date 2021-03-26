@@ -40,7 +40,7 @@ section.intro button:hover {
   box-shadow: 10px 10px 5px #aaaaaa;
 }
 
-section.intro button.hide {
+section.intro table.hide {
    display: none
   }
 
@@ -71,7 +71,41 @@ section.choicesBox button.show {
     border-radius: 12px;
 }
 
+/* section.highscores  #scoresTable{
+    border: 1px solid black;
+    width: 100%;
+}
 
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+
+th {
+  background-color: #7e0b4a;
+  color: white;
+} */
+
+section.highscores {
+  text-align: center;
+}
+
+table, td {
+  text-align: center;
+  margin-top: 40px;
+  width: 50%
+}
+
+th {
+  text-align: center;
+  background-color: purple;
+  color: white;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+}
 
 .showText{
     border-top: 1px solid grey;
@@ -93,6 +127,9 @@ section.topright {
         font-size: 18px;
  } 
 
+ section.highscores .hide {
+   display: none;
+ }
 
 
  a {
